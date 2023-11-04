@@ -47,6 +47,9 @@ router.post('/directories', (req, res) => {
   nuevoObjeto.id = newId;
   objetos.push(nuevoObjeto);
 
+  // Guardar los objetos en el archivo JSON
+  fs.writeFileSync('bd.json', JSON.stringify(objetos, null, 2));
+
   res.status(201).json(nuevoObjeto);
 });
 
@@ -67,6 +70,10 @@ router.put('/directories/:id', (req, res) => {
 
   if (objetoIndex !== -1) {
     objetos[objetoIndex] = { id, ...req.body };
+
+    // Guardar la matriz actualizada en el archivo JSON
+    fs.writeFileSync('bd.json', JSON.stringify(objetos, null, 2));
+
     res.json(objetos[objetoIndex]);
   } else {
     res.status(404).json({ message: 'Objeto no encontrado' });
@@ -79,6 +86,10 @@ router.patch('/directories/:id', (req, res) => {
 
   if (objetoIndex !== -1) {
     objetos[objetoIndex] = { ...objetos[objetoIndex], ...req.body };
+
+    // Guardar la matriz actualizada en el archivo JSON
+    fs.writeFileSync('bd.json', JSON.stringify(objetos, null, 2));
+
     res.json(objetos[objetoIndex]);
   } else {
     res.status(404).json({ message: 'Objeto no encontrado' });
@@ -91,6 +102,10 @@ router.delete('/directories/:id', (req, res) => {
 
   if (objetoIndex !== -1) {
     const deletedObjeto = objetos.splice(objetoIndex, 1);
+
+    // Guardar la matriz actualizada en el archivo JSON
+    fs.writeFileSync('bd.json', JSON.stringify(objetos, null, 2));
+
     res.json(deletedObjeto[0]);
   } else {
     res.status(404).json({ message: 'Objeto no encontrado' });

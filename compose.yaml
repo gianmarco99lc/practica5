@@ -1,8 +1,9 @@
+#Practica 3
 version: '3'
 
 services:
   app:
-    image: practica3glc:1.0
+    image: practica3:1.0
     deploy:
       replicas: 2
     ports:
