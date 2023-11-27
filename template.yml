@@ -6,8 +6,8 @@ metadata:
     description: >-
       Platilla de despliegue para apiexpress
     tags: "express"
-    openshift.io/documentation-url: "https://github.com/gianmarco99lc/APIExpress.git"
-    openshift.io/suport-url: "https://github.com/gianmarco99lc/APIExpress.git"
+    openshift.io/documentation-url: "https://github.com/gianmarco99lc/practica5.git"
+    openshift.io/suport-url: "https://github.com/gianmarco99lc/practica5.git"
 
 parameters:
   - name: APP_NAME
