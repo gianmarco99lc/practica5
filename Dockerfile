@@ -4,9 +4,6 @@ FROM node:14
 # Establece el directorio de trabajo en /app
 WORKDIR /app
 
-# Copia el archivo bd.json a la imagen
-COPY bd.json /app/bd.json
-
 # Copia el package.json y el package-lock.json para instalar las dependencias
 COPY package*.json ./
 
@@ -16,7 +13,7 @@ RUN npm install
 # Copia el resto de los archivos de la aplicación
 COPY . .
 
-# Expón el puerto en el que tu aplicación escucha
+# Expón el puerto en el que tu aplicación escucha (ajusta según sea necesario)
 EXPOSE 4000
 
 # Comando para ejecutar la aplicación

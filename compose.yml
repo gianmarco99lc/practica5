@@ -1,16 +1,17 @@
-#Practica 2
-version: '2'
+version: '3'
 
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: my-node-app
+    image: gianmarcolc99/practica5:1.0  
     ports:
       - "4000:4000"
     environment:
       - NODE_ENV=production
-    volumes:
-      - ./bd.json:/app/bd.json
+    networks:
+      - my_app_net
 
+networks:
+  my_app_net:
