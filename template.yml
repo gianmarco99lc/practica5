@@ -57,25 +57,6 @@ objects:
         name: apiexpress-appserver
         weight: 100
       wildcardPolicy: None
-
-  - apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: apiexpress-pvc
-    spec:
-      accessModes:
-        - ReadWriteMany
-      resources:
-        requests:
-          storage: 1Gi
-    volumes:
-    - name: apiexpress-volume
-      persistentVolumeClaim:
-        claimName: apiexpress-pvc
-    volumeMounts:
-    - name: apiexpress-volume
-      mountPath: /app 
-      subPath: app
   
   - apiVersion: apps/v1
     kind: Deployment
@@ -94,7 +75,7 @@ objects:
             app: "apiexpress-appserver"
         spec:
           containers:
-            - image: 'gianmarcolc99/practica5:1.0'
+            - image: 'gianmarcolc99/practica5:3.0'
               imagePullPolicy: Always
               name: appserver
               env:
@@ -108,5 +89,12 @@ objects:
                   memory: "256M"
                 requests:
                   memory: "256M"
+              volumeMounts:
+                - name: apiexpress-volume
+                  mountPath: /app/data 
+                  subPath: data
           restartPolicy: Always
-    
+          volumes:
+            - name: apiexpress-volume
+              persistentVolumeClaim:
+                claimName: "data"    

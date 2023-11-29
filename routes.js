@@ -1,8 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
+const path = require('path');
 
-const filePath = 'bd.json';
+// Obtener la ruta de la carpeta del proyecto
+const projectPath = path.dirname(__filename);
+
+// Crear la ruta de la carpeta donde quieres guardar el archivo
+const folderPath = path.join(projectPath, 'data');
+
+// Verificar si la carpeta existe
+if (!fs.existsSync(folderPath)) {
+  // Si no existe, crear la carpeta
+  fs.mkdirSync(folderPath);
+}
+
+// Crear la ruta del archivo
+const filePath = path.join(folderPath, 'bd.json');
 
 // Verificar si el archivo existe
 if (!fs.existsSync(filePath)) {
@@ -161,7 +175,7 @@ router.post('/directories', (req, res) => {
   objetos.push(nuevoObjeto);
 
   // Guardar los objetos en el archivo JSON
-  fs.writeFileSync('bd.json', JSON.stringify(objetos, null, 2));
+  fs.writeFileSync(filePath, JSON.stringify(objetos, null, 2));
 
   res.status(201).json(nuevoObjeto);
 });
@@ -285,7 +299,7 @@ router.put('/directories/:id', (req, res) => {
     objetos[objetoIndex] = { id, ...req.body };
 
     // Guardar la matriz actualizada en el archivo JSON
-    fs.writeFileSync('bd.json', JSON.stringify(objetos, null, 2));
+    fs.writeFileSync(filePath, JSON.stringify(objetos, null, 2));
 
     res.json(objetos[objetoIndex]);
   } else {
@@ -358,7 +372,7 @@ router.patch('/directories/:id', (req, res) => {
     objetos[objetoIndex] = { ...objetos[objetoIndex], ...req.body };
 
     // Guardar la matriz actualizada en el archivo JSON
-    fs.writeFileSync('bd.json', JSON.stringify(objetos, null, 2));
+    fs.writeFileSync(filePath, JSON.stringify(objetos, null, 2));
 
     res.json(objetos[objetoIndex]);
   } else {
@@ -417,7 +431,7 @@ router.delete('/directories/:id', (req, res) => {
     const deletedObjeto = objetos.splice(objetoIndex, 1);
 
     // Guardar la matriz actualizada en el archivo JSON
-    fs.writeFileSync('bd.json', JSON.stringify(objetos, null, 2));
+    fs.writeFileSync(filePath, JSON.stringify(objetos, null, 2));
 
     res.json(deletedObjeto[0]);
   } else {

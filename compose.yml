@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: gianmarcolc99/practica5:1.0  
+    image: gianmarcolc99/practica5:3.0  
     ports:
       - "4000:4000"
     environment:
